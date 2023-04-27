@@ -2,6 +2,8 @@
 """ Module definition """
 import re
 import logging
+import os
+import mysql.connector
 from typing import List
 
 
@@ -50,3 +52,34 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """ initialize db connection """
+    return mysql.connector.connect(
+        host=os.getenv("PERSONAL_DATA_DB_HOST") or "localhost",
+        user=os.getenv("PERSONAL_DATA_DB_USERNAME") or "root",
+        password=os.getenv("PERSONAL_DATA_DB_PASSWORD") or "",
+        database=os.getenv("PERSONAL_DATA_DB_NAME")
+    )
+
+
+def main():
+    """ entry point for db connection """
+    db = get_db()
+    logger = get_logger()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    rows = cursor.fetchall()
+
+    fields = ('name', 'email', 'phone', 'ssn', 'password', 'ip',
+              'last_login', 'user_agent')
+    for row in rows:
+        message = "".join((f"{k}={v}; " for k, v in zip(fields, row)))
+        logger.info(message)
+    cursor.close()
+    db.close()
+
+
+if __name__ == "__main__":
+    main()
