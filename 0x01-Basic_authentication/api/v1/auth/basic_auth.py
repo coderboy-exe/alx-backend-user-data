@@ -34,7 +34,8 @@ class BasicAuth(Auth):
         h = decoded_base64_authorization_header
         if h is None or not isinstance(h, str) or ":" not in h:
             return None, None
-        return h.split(":")[0], h.split(":")[1]
+        credentials = h.split(":", 1)
+        return credentials[0], credentials[1]
 
     def user_object_from_credentials(
             self, user_email: str, user_pwd: str) -> TypeVar('User'):
