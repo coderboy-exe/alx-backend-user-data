@@ -23,10 +23,10 @@ elif AUTH_TYPE == "basic_auth":
 
 
 @app.before_request
-def before_req():
+def before_req() -> str:
     """ Method to fire before sending http request """
     if auth is None:
-        pass
+        return
 
     path = request.path
     excluded_paths = [
