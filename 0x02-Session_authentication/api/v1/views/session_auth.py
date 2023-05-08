@@ -7,7 +7,7 @@ from models.user import User
 
 
 @app_views.route('/auth_session/login', methods=['POST'],
-        strict_slashes=False)
+                 strict_slashes=False)
 def login():
     """ Handle session login | Retrieve user instance """
     email = request.form.get('email')
@@ -29,8 +29,9 @@ def login():
         response.set_cookie(session_name, session_id)
         return response
 
+
 @app_views.route('/auth_session/logout', methods=['DELETE'],
-        strict_slashes=False)
+                 strict_slashes=False)
 def logout():
     """ Handles logout | Deletes the user session """
     from api.v1.app import auth
