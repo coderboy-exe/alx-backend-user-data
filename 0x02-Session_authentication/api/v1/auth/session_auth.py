@@ -39,5 +39,5 @@ class SessionAuth(Auth):
                 or not self.user_id_for_session_id(self.session_cookie):
             return False
 
-        del self.user_id_by_session_id[self.session_cookiei(request)]
+        del self.user_id_by_session_id[self.session_cookie(request)]
         return True
