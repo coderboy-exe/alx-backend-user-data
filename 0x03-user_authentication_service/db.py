@@ -9,8 +9,6 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from user import Base, User
 
-from typing import TypeVar
-
 
 class DB:
     """DB class
