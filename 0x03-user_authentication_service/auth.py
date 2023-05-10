@@ -98,7 +98,7 @@ class Auth:
             raise ValueError
 
     def update_password(self, reset_token: str, password: str) -> None:
-        """ Updates a u\User's password and returns None """
+        """ Updates a User's password and returns None """
         try:
             user = self._db.find_user_by(reset_token=reset_token)
             if user:
