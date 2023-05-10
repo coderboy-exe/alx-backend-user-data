@@ -86,7 +86,7 @@ def get_reset_password_token() -> str:
     """ Reset password route """
     try:
         email = request.form.get('email')
-        reset_token = AUTH.get_password_reset_token(email)
+        reset_token = AUTH.get_reset_password_token(email)
         return jsonify(email=email, reset_token=reset_token)
     except ValueError:
         abort(403)
