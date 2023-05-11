@@ -25,7 +25,7 @@ def register_user(email: str, password: str) -> None:
         assert(r.json() == failure)
 
 
-def log_in_wrong_password(email:str, password: str) -> None:
+def log_in_wrong_password(email: str, password: str) -> None:
     """ Test case for login with wrong password """
     data = {'email': email, 'password': password}
     r = requests.post(f'{BASE_URL}/sessions', data=data)
@@ -88,7 +88,7 @@ def update_password(email: str, reset_token: str, new_password: str) -> None:
     data = {'email': email, 'reset_token': reset_token,
             'new_password': new_password}
     r = requests.put(f'{BASE_URL}/reset_password', data=data)
-    
+
     success = {"email": email, "message": "Password updated"}
 
     if r.status_code == 200:
